@@ -1,0 +1,66 @@
+/*
+This program makes use of the common, slide-your-phone-in VR headsets. You can buy (or make one for free) at 
+
+    cardboard.google.com
+    
+Just open this program on a mobile phone, slide it into your headset, and view!
+
+NOTE: The phone's screen may actually be too small, but I don't know what else to do. If I think of something, I'll enter it in.
+    
+If your screen isn't the same size as mine (or your eyes are farther spread apart than mine), and you can't see anything, change the "1" below into something else. Mess around until it fits.*/
+var splitDistance = 1;
+
+/*Anything below here is code that I wouldn't like you to touch unless you are a fellow coder.*/
+var player = function() {
+    this.position = new PVector(0, 0, 0);
+    this.velocity = new PVector(0, 0, 0);
+    this.acceleration = new PVector(0, 0, 0);
+    
+    this.vp = 10;
+    this.sp = 5;
+};
+
+var a = function(a){
+    return sq(a);
+};
+player.prototype.findScreenPos = function(x, y, z) {
+    var answer = (new PVector(atan((this.position.x-x)/(this.position.z-z)), atan((this.position.y-y)/(this.position.z-z)), splitDistance * (sqrt((sq(this.position.z - z))+(sq(this.position.y - y)+sq(this.position.x - x))))));
+    return(answer);
+};
+
+var player1 = new player();
+
+
+var block = function(x, y, z) {
+    this.position = new PVector(x, y, z);
+};
+
+block.prototype.findPos = function() {
+    this.pos = player1.findScreenPos(this.position.x, this.position.y, this.position.z);
+};
+
+block.prototype.display = function() {
+    this.findPos();
+    pushMatrix();
+        scale(0.5);
+        translate(width + this.pos.z, height/2);
+        fill(255, 0, 0);
+        rect(this.pos.x, this.pos.y, 200, 200);
+    popMatrix();
+    pushMatrix();
+        scale(0.5);
+        translate(-1 * (this.pos.z), height/2);
+        rect(this.pos.x, this.pos.y, 200, 200);
+    popMatrix();
+};
+
+block.prototype.update = function() {
+    
+};
+
+var block1 = new block(27, 0, 0);
+
+draw = function() {
+    background(255, 255, 255);
+    block1.display();
+};
