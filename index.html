@@ -1,4 +1,22 @@
-/*
+<!DOCTYPE html>
+<html> 
+  <head>
+    <title>Reality (Virtual/Augmented)</title> 
+  </head>
+  <body>
+	<!--This draws the canvas on the webpage -->
+    <canvas id="mycanvas"></canvas> 
+  </body>
+ 
+  <!-- Include the processing.js library -->
+  <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
+  <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+  <script>
+  var programCode = function(processingInstance) {
+    with (processingInstance) {
+      size(400, 400); 
+      frameRate(30);
+        /*
 This program makes use of the common, slide-your-phone-in VR headsets. You can buy (or make one for free) at 
 
     cardboard.google.com
@@ -9,6 +27,16 @@ NOTE: The phone's screen may actually be too small, but I don't know what else t
     
 If your screen isn't the same size as mine (or your eyes are farther spread apart than mine), and you can't see anything, change the "1" below into something else. Mess around until it fits.*/
 var splitDistance = 1;
+
+
+
+
+
+
+
+
+
+
 
 /*Anything below here is code that I wouldn't like you to touch unless you are a fellow coder.*/
 var player = function() {
@@ -64,3 +92,11 @@ draw = function() {
     background(255, 255, 255);
     block1.display();
 };
+    }};
+
+  // Get the canvas that ProcessingJS will use
+  var canvas = document.getElementById("mycanvas"); 
+  // Pass the function to ProcessingJS constructor
+  var processingInstance = new Processing(canvas, programCode); 
+  </script>
+</html>
